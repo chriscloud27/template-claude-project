@@ -58,6 +58,39 @@ Specialized subagent personas for specific tasks:
 
 ### Documentation & Rules
 
-- **.claude/docs/**: Detailed reference documents and guides
-- **.claude/rules/**: Modular, path-scoped instructions for specific areas
-- **.claude/hooks/**: Event-driven automation scripts
+#### `.claude/docs/`
+
+Reference documents Claude reads when relevant or when explicitly referenced in `CLAUDE.md`. Always-loaded is `CLAUDE.md` itself — keep it short and link to docs for detail.
+
+Best for:
+- Architecture overview and target state
+- Domain glossary / customer-specific terminology
+- Project context, stakeholders, background
+- Migration scope and workstreams
+- Key decisions / ADRs
+
+Example files:
+- `architecture.md` — Azure target architecture
+- `project-context.md` — Customer background, stakeholders, migration goals
+- `glossary.md` — Domain terms and customer-specific vocabulary
+- `decisions.md` — Key architectural and technical decisions
+
+#### `.claude/rules/`
+
+Modular instructions scoped to specific file paths. Claude applies them automatically when working in the matched directory — no need to repeat conventions in every prompt.
+
+Best for:
+- Terraform / OpenTofu style conventions (`terraform/`)
+- Helm chart authoring guidelines (`helm/`)
+- CI/CD pipeline standards (`.github/workflows/`)
+- Any folder with non-obvious project-specific rules
+
+#### `.claude/hooks/`
+
+Shell scripts triggered automatically by Claude Code lifecycle events (e.g. after a file is saved, before a commit, when a task completes). Hooks run outside the model — they are deterministic automation, not AI behavior.
+
+Best for:
+- Auto-formatting on save
+- Running `terraform validate` after `.tf` changes
+- Posting notifications when Claude finishes a task
+- Enforcing pre-commit checks
