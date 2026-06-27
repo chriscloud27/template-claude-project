@@ -13,6 +13,11 @@
             "type": "command",
             "command": "bash .claude/hooks/helm-lint.sh",
             "condition": ".*(Chart\\.yaml|values.*\\.yaml)$"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post-kustomize-change.sh",
+            "condition": ".*kustomization\\.yaml$"
           }
         ]
       }
@@ -25,6 +30,11 @@
             "type": "command",
             "command": "bash .claude/hooks/pre-commit-scan.sh",
             "condition": "git (commit|push)"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre-push-adr-check.sh",
+            "condition": "git push"
           }
         ]
       }
